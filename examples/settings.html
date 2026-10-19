@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings, a Swiss Moss example</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../css/swiss-moss.css">
+</head>
+<body>
+<div class="sm-container sm-stack" style="padding-top:var(--sm-space-6);padding-bottom:var(--sm-space-9)">
+  <div class="sm-between">
+    <ol class="sm-breadcrumb"><li><a href="../index.html">Swiss Moss</a></li><li><span aria-current="page">Example: settings</span></li></ol>
+    <button type="button" class="sm-btn sm" data-sm-theme-toggle>Toggle theme</button>
+  </div>
+
+  <div class="sm-tabs" role="tablist" data-sm-tabs>
+    <button class="sm-tab" role="tab" aria-selected="true" aria-controls="p1" id="t1">Profile</button>
+    <button class="sm-tab" role="tab" aria-selected="false" aria-controls="p2" id="t2">Notifications</button>
+    <button class="sm-tab" role="tab" aria-selected="false" aria-controls="p3" id="t3">Team <span>4</span></button>
+  </div>
+
+  <div role="tabpanel" id="p1" aria-labelledby="t1" class="sm-stack">
+    <div class="sm-between"><h1 class="sm-display-l">Your profile.</h1><p class="sm-caption">Changes save when you leave a field.</p></div>
+    <form class="sm-stack" onsubmit="event.preventDefault(); SwissMoss.toast('Saved. Your profile follows you to every device.')">
+      <div class="sm-form-row">
+        <div class="sm-field" data-sm-validate><label class="sm-label" for="name">Name</label><input class="sm-input" id="name" type="text" value="Ana Ferreira" required><span class="sm-error">Please enter a name.</span></div>
+        <div class="sm-field" data-sm-validate><label class="sm-label" for="email">Email</label><input class="sm-input" id="email" type="email" value="ana@example.com" required><span class="sm-error">That does not look like an email address.</span></div>
+      </div>
+      <div class="sm-field"><label class="sm-label" for="alt">Other addresses that reach you</label><div class="sm-tag-input" data-sm-tag-input="email"><span class="sm-chip">ana.f@example.org</span><input id="alt" type="text" placeholder="Add an address" autocomplete="off"><input type="hidden" name="alt"></div><span class="sm-hint">Mail to these lands in the same queue.</span></div>
+      <div class="sm-field"><label class="sm-label" for="labels">Interests, for the Feed</label><div class="sm-tag-input" data-sm-tag-input="text" data-sm-suggest="platform, security, finance, warehouse, hiring, vendor"><span class="sm-chip">platform</span><span class="sm-chip">security</span><input id="labels" type="text" placeholder="Add a label" autocomplete="off"><input type="hidden" name="labels"></div></div>
+      <div class="sm-field" style="max-width:420px"><label class="sm-label" for="tz">Time zone</label><select class="sm-select" id="tz"><option>Europe/Berlin</option><option>America/Sao_Paulo</option><option>UTC</option></select></div>
+      <div class="sm-field"><label class="sm-label" for="bio">About you <span class="sm-optional">optional</span></label><textarea class="sm-textarea" id="bio" maxlength="200" placeholder="One line is enough."></textarea><span class="sm-char-count" data-sm-count="bio"></span></div>
+      <div class="sm-cluster"><button class="sm-btn primary" type="submit">Save</button><button class="sm-btn quiet" type="reset">Reset</button></div>
+    </form>
+  </div>
+
+  <div role="tabpanel" id="p2" aria-labelledby="t2" class="sm-stack" hidden>
+    <h1 class="sm-display-l">Interrupt only when it matters.</h1>
+    <div class="sm-choice-group">
+      <label class="sm-switch"><input type="checkbox" checked> Full-screen meeting alarm</label>
+      <label class="sm-switch"><input type="checkbox" checked> Push for the Now pile only</label>
+      <label class="sm-switch"><input type="checkbox"> Weekly digest on Friday</label>
+    </div>
+    <div class="sm-field" style="max-width:360px"><label class="sm-label" for="lead">Alarm lead time: <span id="leadv">2</span> min</label><input class="sm-range" id="lead" type="range" min="1" max="30" value="2" oninput="leadv.textContent=this.value"></div>
+    <div class="sm-segmented" role="radiogroup" aria-label="Quiet hours"><label><input type="radio" name="q" checked><span>Off</span></label><label><input type="radio" name="q"><span>Evenings</span></label><label><input type="radio" name="q"><span>Weekends</span></label></div>
+    <div class="sm-alert info"><div><b>Dismissing an alarm silences every device signed in as you.</b> Snoozing only silences the one you touched.</div></div>
+  </div>
+
+  <div role="tabpanel" id="p3" aria-labelledby="t3" class="sm-stack" hidden>
+    <div class="sm-between"><h1 class="sm-display-l">Four people, one key.</h1><button class="sm-btn signal" data-sm-dialog-open="revoke">Revoke all tokens</button></div>
+    <div class="sm-table-wrap"><table class="sm-table"><thead><tr><th>Name</th><th>Role</th><th class="num">Last seen</th><th></th></tr></thead><tbody>
+      <tr><td><span class="sm-cluster"><span class="sm-avatar sm">AF</span>Ana Ferreira</span></td><td><span class="sm-tag moss">admin</span></td><td class="num">now</td><td><details class="sm-menu right"><summary class="sm-btn sm quiet">More</summary><ul class="sm-menu-list"><li><button type="button">Change role</button></li><li><button type="button" class="danger">Remove</button></li></ul></details></td></tr>
+      <tr><td><span class="sm-cluster"><span class="sm-avatar sm">PN</span>Priya Nair</span></td><td><span class="sm-tag">member</span></td><td class="num">6 min ago</td><td><details class="sm-menu right"><summary class="sm-btn sm quiet">More</summary><ul class="sm-menu-list"><li><button type="button">Change role</button></li><li><button type="button" class="danger">Remove</button></li></ul></details></td></tr>
+      <tr><td><span class="sm-cluster"><span class="sm-avatar sm">TW</span>Tomas Weber</span></td><td><span class="sm-tag">member</span></td><td class="num">1 h ago</td><td><details class="sm-menu right"><summary class="sm-btn sm quiet">More</summary><ul class="sm-menu-list"><li><button type="button">Change role</button></li><li><button type="button" class="danger">Remove</button></li></ul></details></td></tr>
+      <tr><td><span class="sm-cluster"><span class="sm-avatar sm">LO</span>Leah Okafor</span></td><td><span class="sm-tag signal">invited</span></td><td class="num">never</td><td><details class="sm-menu right"><summary class="sm-btn sm quiet">More</summary><ul class="sm-menu-list"><li><button type="button">Resend invite</button></li><li><button type="button" class="danger">Remove</button></li></ul></details></td></tr>
+    </tbody></table></div>
+    <dialog class="sm-dialog" id="revoke"><div class="sm-dialog-body"><p class="sm-title">Revoke all tokens?</p><p class="sm-body sm-muted">Everyone will need to sign in to their tools again. This cannot be undone.</p></div><div class="sm-dialog-actions"><button class="sm-btn quiet" data-sm-dialog-close>Cancel</button><button class="sm-btn signal" data-sm-dialog-close onclick="SwissMoss.toast('All tokens revoked')">Revoke all</button></div></dialog>
+  </div>
+</div>
+<script src="../js/swiss-moss.js"></script>
+</body>
+</html>

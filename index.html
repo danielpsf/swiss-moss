@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swiss Moss design system</title>
+<meta name="description" content="Paper, ink and one green. A small, opinionated design system: tokens, CSS components and a few behaviours. Light and dark.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234A7A52'/%3E%3Crect x='8' y='10' width='16' height='2' rx='1' fill='%23FBF8F0'/%3E%3Crect x='8' y='15' width='16' height='2' rx='1' fill='%23FBF8F0'/%3E%3Crect x='8' y='20' width='10' height='2' rx='1' fill='%23FBF8F0'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="css/swiss-moss.css">
+<style>
+  .doc{display:grid;grid-template-columns:220px minmax(0,1fr);gap:var(--sm-space-7);max-width:1180px;margin:0 auto;padding:var(--sm-space-6) var(--sm-space-5) var(--sm-space-9)}
+  .doc aside{position:sticky;top:var(--sm-space-6);align-self:start;max-height:calc(100vh - 56px);overflow:auto}
+  .doc section{scroll-margin-top:var(--sm-space-6)}
+  .doc section+section{margin-top:var(--sm-space-8)}
+  .demo{border:1px solid var(--sm-line);border-radius:var(--sm-radius-m);padding:var(--sm-space-5);background:var(--sm-paper);display:flex;flex-direction:column;gap:var(--sm-space-4);margin:var(--sm-space-3) 0 0}
+  .demo.row{flex-direction:row;flex-wrap:wrap;align-items:center}
+  .code{margin:0;background:var(--sm-paper-deep);border:1px solid var(--sm-line);border-top:0;border-radius:0 0 var(--sm-radius-m) var(--sm-radius-m);padding:12px 16px;overflow:auto;font-family:var(--sm-font-mono);font-size:12.5px;line-height:1.5;color:var(--sm-muted);max-height:260px}
+  .demo+.code{margin-top:-1px}
+  .demo+.code{border-radius:0 0 var(--sm-radius-m) var(--sm-radius-m)}
+  .demo:has(+.code){border-radius:var(--sm-radius-m) var(--sm-radius-m) 0 0}
+  .sub{margin:var(--sm-space-5) 0 0;font-size:13px;font-weight:600;color:var(--sm-muted)}
+  .top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:var(--sm-space-7)}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--sm-font-display);font-weight:600;font-size:18px;letter-spacing:-.01em;text-decoration:none}
+  .brand i{width:28px;height:28px;border-radius:7px;background:var(--sm-moss);display:inline-block;position:relative}
+  .brand i::before,.brand i::after{content:"";position:absolute;left:7px;right:7px;height:2px;border-radius:1px;background:var(--sm-on-moss)}
+  .brand i::before{top:9px}.brand i::after{top:15px;right:12px}
+  @media (max-width:860px){.doc{grid-template-columns:1fr}.doc aside{position:static;max-height:none}}
+</style>
+</head>
+<body>
+<div class="doc">
+  <aside>
+    <nav class="sm-nav" aria-label="Sections">
+      <a href="#start">Start here</a><a href="#tokens">Tokens</a><a href="#typography">Typography</a><a href="#buttons">Buttons</a><a href="#chips">Chips, tags, badges</a><a href="#inputs">Inputs</a><a href="#tag-input">Tag inputs</a><a href="#choices">Selection controls</a><a href="#navigation">Navigation</a><a href="#feedback">Feedback</a><a href="#data">Data display</a><a href="#writing">Writing</a>
+    </nav>
+    <p class="sm-caption" style="margin:20px 12px 0">v1.0.0, Apache-2.0</p>
+  </aside>
+
+  <main>
+    <div class="top">
+      <a class="brand" href="#"><i></i>Swiss Moss</a>
+      <div class="sm-btn-group" role="group" aria-label="Theme">
+        <button type="button" class="sm-btn sm" data-sm-theme="light">Light</button>
+        <button type="button" class="sm-btn sm" data-sm-theme="auto">Auto</button>
+        <button type="button" class="sm-btn sm" data-sm-theme="dark">Dark</button>
+      </div>
+    </div>
+
+    <section id="start" class="sm-stack">
+      <h1 class="sm-display-l">Paper, ink and one green.</h1>
+      <p class="sm-lead sm-muted" style="max-width:640px">A small, opinionated design system for calm interfaces: a token set, a CSS component library, and a few dependency-free behaviours. Light and dark from the same tokens. No build step.</p>
+      <div class="sm-grid">
+        <div class="sm-card"><p class="sm-card-title">One sentence first</p><p class="sm-body sm-muted">Every screen opens with a headline that states the situation in plain words. Counts live inside sentences, never as big numbers with tiny labels.</p></div>
+        <div class="sm-card"><p class="sm-card-title">Lines, not boxes</p><p class="sm-body sm-muted">Hairlines separate content. Cards are for things that float or take input: a command bar, a reply box, a dialog, a toast.</p></div>
+        <div class="sm-card"><p class="sm-card-title">Nothing moves until you do</p><p class="sm-body sm-muted">Motion answers an action and nothing else. Reduced-motion preferences are respected everywhere.</p></div>
+      </div>
+      <div class="sm-prose">
+        <h2>Install</h2>
+        <p>Copy <code>tokens/</code>, <code>css/</code> and <code>js/</code> into your project, or point at them from this repository. Load Inter and Inter Tight from Google Fonts (both are open fonts), then:</p>
+        <pre><code>&lt;link rel="stylesheet" href="css/swiss-moss.css"&gt;
+&lt;script src="js/swiss-moss.js" defer&gt;&lt;/script&gt;</code></pre>
+        <p>Every class is prefixed with <code>sm-</code>. Every colour, size and radius is a custom property prefixed <code>--sm-</code>, so your own CSS can use them too. Dark mode follows the system by default; add <code>data-theme="dark"</code> or <code>"light"</code> on <code>&lt;html&gt;</code> to force one, or use the buttons above, which persist the choice.</p>
+      </div>
+    </section>
+
+    <section id="tokens" class="sm-stack">
+      <h2 class="sm-title">Tokens</h2>
+      <p class="sm-body sm-muted">Switch the theme above to see the second set. Both live in <span class="sm-mono">tokens/tokens.css</span>, and <span class="sm-mono">tokens/tokens.json</span> holds the same values for tooling.</p>
+      <p class="sub">Colour</p>
+      <div class="sm-grid" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr))" id="swatches"></div>
+      <p class="sub">Spacing, on a 28px rhythm</p>
+      <div class="demo row" id="spaces"></div>
+      <p class="sub">Radius and shadow</p>
+      <div class="demo row">
+        <div style="width:64px;height:64px;border:1px solid var(--sm-line);border-radius:var(--sm-radius-s);display:grid;place-items:center" class="sm-caption">s 8</div>
+        <div style="width:64px;height:64px;border:1px solid var(--sm-line);border-radius:var(--sm-radius-m);display:grid;place-items:center" class="sm-caption">m 12</div>
+        <div style="width:64px;height:64px;border:1px solid var(--sm-line);border-radius:var(--sm-radius-l);display:grid;place-items:center" class="sm-caption">l 16</div>
+        <div style="width:64px;height:40px;border:1px solid var(--sm-line);border-radius:var(--sm-radius-pill);display:grid;place-items:center" class="sm-caption">pill</div>
+        <div style="width:96px;height:64px;background:var(--sm-card);border-radius:var(--sm-radius-m);box-shadow:var(--sm-shadow-rest);display:grid;place-items:center" class="sm-caption">rest</div>
+        <div style="width:96px;height:64px;background:var(--sm-card);border-radius:var(--sm-radius-m);box-shadow:var(--sm-shadow-lift);display:grid;place-items:center" class="sm-caption">lift</div>
+      </div>
+    </section>
+
+    <section id="typography" class="sm-stack">
+      <h2 class="sm-title">Typography</h2>
+      <p class="sm-body sm-muted">Inter Tight for display and item titles, Inter for everything else. Sentence case everywhere; no all-caps labels.</p>
+      <div class="demo">
+        <p class="sm-display-xl">Display xl</p>
+        <p class="sm-display-l">Display l, the screen headline.</p>
+        <p class="sm-display-m">Display m for secondary heroes</p>
+        <p class="sm-title">Title, 28px</p>
+        <p class="sm-heading">Heading, 20px</p>
+        <p class="sm-item">Item, 19px: the title of a row, the most read style</p>
+        <p class="sm-lead">Lead, 17px, for an introduction under a headline.</p>
+        <p class="sm-body">Body, 15px. The default. Line height 1.55 so paragraphs breathe.</p>
+        <p class="sm-small">Small, 14px, for secondary lines.</p>
+        <p class="sm-caption">Caption, 13px, muted, for who and when.</p>
+        <p class="sm-key">Key, 12px, for tiny labels and keyboard hints</p>
+      </div>
+      <pre class="code">&lt;h1 class="sm-display-l"&gt;Seven things need you.&lt;/h1&gt;
+&lt;p class="sm-item"&gt;Rotate the production keys before the audit&lt;/p&gt;
+&lt;p class="sm-caption"&gt;Priya, 12 min&lt;/p&gt;</pre>
+    </section>
+
+    <section id="buttons" class="sm-stack">
+      <h2 class="sm-title">Buttons</h2>
+      <p class="sm-body sm-muted">Pills only. One primary per view. Ghost for secondary choices, quiet for low-stakes escapes, signal for irreversible actions, danger for destructive ones.</p>
+      <div class="demo row" data-snippet>
+        <button class="sm-btn primary">Send and next</button>
+        <button class="sm-btn">Reply later</button>
+        <button class="sm-btn quiet">Dismiss</button>
+        <button class="sm-btn signal">Revoke all tokens</button>
+        <button class="sm-btn danger">Delete</button>
+        <button class="sm-btn" disabled>Disabled</button>
+        <button class="sm-btn primary loading">Saving</button>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Sizes, icons and groups</p>
+      <div class="demo row" data-snippet>
+        <button class="sm-btn sm">Small</button>
+        <button class="sm-btn">Default</button>
+        <button class="sm-btn lg">Large</button>
+        <button class="sm-btn xl primary">Join the call</button>
+        <button class="sm-btn icon" aria-label="Search"><svg class="sm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+        <button class="sm-btn"><svg class="sm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>With icon</button>
+        <div class="sm-btn-group" role="group" aria-label="View"><button class="sm-btn sm" aria-pressed="true">List</button><button class="sm-btn sm" aria-pressed="false">Board</button><button class="sm-btn sm" aria-pressed="false">Calendar</button></div>
+      </div>
+      <pre class="code"></pre>
+    </section>
+
+    <section id="chips" class="sm-stack">
+      <h2 class="sm-title">Chips, tags, badges, labels</h2>
+      <p class="sm-body sm-muted">Chips are interactive: filters you toggle or values you remove. Tags are static descriptors. Badges are counts. Labels name fields.</p>
+      <p class="sub">Chips: toggle, removable, with avatar</p>
+      <div class="demo row" data-snippet>
+        <button class="sm-chip" aria-pressed="true">Mine</button>
+        <button class="sm-chip" aria-pressed="false">Unread</button>
+        <button class="sm-chip" aria-pressed="false">This week</button>
+        <span class="sm-chip">priya@example.com<button type="button" class="sm-chip-x" aria-label="Remove">&times;</button></span>
+        <span class="sm-chip"><span class="sm-avatar sm">LO</span>Leah Okafor<button type="button" class="sm-chip-x" aria-label="Remove">&times;</button></span>
+        <span class="sm-chip invalid">not-an-email<button type="button" class="sm-chip-x" aria-label="Remove">&times;</button></span>
+        <span class="sm-chip sm">small chip</span>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Tags</p>
+      <div class="demo row" data-snippet>
+        <span class="sm-tag">Default</span>
+        <span class="sm-tag moss">Approved</span>
+        <span class="sm-tag signal">Overdue</span>
+        <span class="sm-tag danger">Blocked</span>
+        <span class="sm-tag info">In review</span>
+        <span class="sm-tag outline">Outline</span>
+        <span class="sm-tag moss dot">Live</span>
+        <span class="sm-tag signal dot">Degraded</span>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Badges and labels</p>
+      <div class="demo row" data-snippet>
+        <span class="sm-badge">7</span>
+        <span class="sm-badge muted">128</span>
+        <span class="sm-badge signal">3</span>
+        <span class="sm-badge dot" aria-label="Unread"></span>
+        <span class="sm-btn">Inbox <span class="sm-badge">12</span></span>
+        <label class="sm-label">Field label <span class="sm-optional">optional</span></label>
+        <span class="sm-kbd">K</span>
+      </div>
+      <pre class="code"></pre>
+    </section>
+
+    <section id="inputs" class="sm-stack">
+      <h2 class="sm-title">Inputs</h2>
+      <p class="sm-body sm-muted">Every native type, styled once. Fields carry their label, hint and error; add <span class="sm-mono">data-sm-validate</span> to a field to show the browser's own validity on blur.</p>
+      <div class="demo" data-snippet>
+        <div class="sm-form-row">
+          <div class="sm-field" data-sm-validate><label class="sm-label" for="i-name">Full name</label><input class="sm-input" id="i-name" type="text" placeholder="Ana Ferreira" required><span class="sm-error">Please enter a name.</span></div>
+          <div class="sm-field" data-sm-validate><label class="sm-label" for="i-email">Email</label><input class="sm-input" id="i-email" type="email" placeholder="ana@example.com" required><span class="sm-hint">We only use it to sign you in.</span><span class="sm-error">That does not look like an email address.</span></div>
+          <div class="sm-field"><label class="sm-label" for="i-pass">Password</label><input class="sm-input" id="i-pass" type="password" value="hunter2hunter2"></div>
+          <div class="sm-field"><label class="sm-label" for="i-num">Seats</label><input class="sm-input" id="i-num" type="number" value="12" min="1"></div>
+          <div class="sm-field"><label class="sm-label" for="i-url">Website</label><input class="sm-input" id="i-url" type="url" placeholder="https://"></div>
+          <div class="sm-field"><label class="sm-label" for="i-tel">Phone</label><input class="sm-input" id="i-tel" type="tel" placeholder="+49 30 ..."></div>
+          <div class="sm-field"><label class="sm-label" for="i-date">Date</label><input class="sm-input" id="i-date" type="date"></div>
+          <div class="sm-field"><label class="sm-label" for="i-time">Time</label><input class="sm-input" id="i-time" type="time" value="14:00"></div>
+          <div class="sm-field"><label class="sm-label" for="i-sel">Pile</label><select class="sm-select" id="i-sel"><option>Now</option><option>Reply later</option><option>Set aside</option><option>Waiting on</option></select></div>
+          <div class="sm-field"><label class="sm-label" for="i-color">Accent</label><input class="sm-input" id="i-color" type="color" value="#4A7A52"></div>
+          <div class="sm-field"><label class="sm-label" for="i-ro">Read only</label><input class="sm-input" id="i-ro" type="text" value="PLAT-412" readonly></div>
+          <div class="sm-field"><label class="sm-label" for="i-dis">Disabled</label><input class="sm-input" id="i-dis" type="text" value="Not now" disabled></div>
+        </div>
+        <div class="sm-form-row">
+          <div class="sm-field"><label class="sm-label" for="i-search">Search, with icon and shortcut</label><div class="sm-input-group"><svg class="sm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input class="sm-input" id="i-search" type="search" placeholder="Search"><span class="sm-kbd">K</span></div></div>
+          <div class="sm-field"><label class="sm-label" for="i-price">Amount, with prefix and suffix</label><div class="sm-input-group"><span class="sm-affix">EUR</span><input class="sm-input" id="i-price" type="number" value="1200" step="0.01"><span class="sm-affix">per month</span></div></div>
+        </div>
+        <div class="sm-field"><label class="sm-label" for="i-ta">Message</label><textarea class="sm-textarea" id="i-ta" maxlength="280" placeholder="Thursday works. Let's keep it to 45 minutes."></textarea><span class="sm-char-count" data-sm-count="i-ta"></span></div>
+        <label class="sm-file"><input type="file" multiple><svg class="sm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg><span><b>Choose files</b> or drop them here</span><span class="sm-caption" data-sm-file-name></span></label>
+      </div>
+      <pre class="code"></pre>
+    </section>
+
+    <section id="tag-input" class="sm-stack">
+      <h2 class="sm-title">Tag inputs</h2>
+      <p class="sm-body sm-muted">A field that turns what you type into chips: email recipients, labels, keywords, numbers. Enter, comma, paste and blur all commit a value; Backspace removes the last chip; invalid values are kept but marked so people can fix them. Add <span class="sm-mono">data-sm-suggest</span> for a typeahead list and <span class="sm-mono">single</span> for exactly one value.</p>
+      <div class="demo" data-snippet>
+        <div class="sm-field"><label class="sm-label" for="t-to">To, several emails</label><div class="sm-tag-input" data-sm-tag-input="email"><span class="sm-chip">priya@example.com</span><span class="sm-chip">tomas@example.com</span><input id="t-to" type="text" placeholder="Add people" autocomplete="off"><input type="hidden" name="to"></div><span class="sm-hint">Type an address and press Enter, comma or space.</span></div>
+        <div class="sm-field"><label class="sm-label" for="t-owner">Owner, one email</label><div class="sm-tag-input single" data-sm-tag-input="email"><input id="t-owner" type="text" placeholder="owner@example.com" autocomplete="off"><input type="hidden" name="owner"></div></div>
+        <div class="sm-field"><label class="sm-label" for="t-labels">Labels, with suggestions</label><div class="sm-tag-input" data-sm-tag-input="text" data-sm-suggest="platform, security, finance, warehouse, hiring, vendor, incident, ops"><span class="sm-chip">platform</span><input id="t-labels" type="text" placeholder="Add a label" autocomplete="off"><input type="hidden" name="labels"></div></div>
+        <div class="sm-field"><label class="sm-label" for="t-ports">Ports, numbers only, at most 4</label><div class="sm-tag-input" data-sm-tag-input="number" data-sm-max="4"><span class="sm-chip">443</span><input id="t-ports" type="text" placeholder="Add a port" autocomplete="off"><input type="hidden" name="ports"></div></div>
+      </div>
+      <pre class="code"></pre>
+      <div class="sm-prose"><p>Read the values with <code>element.getValues()</code> or from the hidden input (comma separated); set them with <code>element.setValues([...])</code>; listen for <code>sm:change</code>.</p></div>
+    </section>
+
+    <section id="choices" class="sm-stack">
+      <h2 class="sm-title">Selection controls</h2>
+      <div class="demo" data-snippet>
+        <div class="sm-choice-group">
+          <label class="sm-check"><input type="checkbox" checked> Mark the email thread as read when done</label>
+          <label class="sm-check"><input type="checkbox"> Archive it too <span class="sm-hint">Removes it from the inbox as well.</span></label>
+          <label class="sm-check"><input type="checkbox" id="c-ind"> Partially selected</label>
+          <label class="sm-check"><input type="checkbox" disabled> Not available on this plan</label>
+        </div>
+        <div class="sm-choice-group inline" role="radiogroup" aria-label="Delivery">
+          <label class="sm-radio"><input type="radio" name="d" checked> Events over HTTPS</label>
+          <label class="sm-radio"><input type="radio" name="d"> Socket mode</label>
+          <label class="sm-radio"><input type="radio" name="d" disabled> Polling</label>
+        </div>
+        <div class="sm-choice-group inline">
+          <label class="sm-switch"><input type="checkbox" checked> Push on the phone</label>
+          <label class="sm-switch"><input type="checkbox"> Weekly digest</label>
+          <label class="sm-switch"><input type="checkbox" disabled> Beta features</label>
+        </div>
+        <div class="sm-segmented" role="radiogroup" aria-label="Density">
+          <label><input type="radio" name="den" checked><span>Comfortable</span></label>
+          <label><input type="radio" name="den"><span>Compact</span></label>
+          <label><input type="radio" name="den"><span>Spacious</span></label>
+        </div>
+        <div class="sm-field" style="max-width:360px"><label class="sm-label" for="r-lead">Lead time: <span id="r-val">2</span> min</label><input class="sm-range" id="r-lead" type="range" min="1" max="30" value="2" oninput="document.getElementById('r-val').textContent=this.value"></div>
+      </div>
+      <pre class="code"></pre>
+    </section>
+
+    <section id="navigation" class="sm-stack">
+      <h2 class="sm-title">Navigation</h2>
+      <p class="sub">Tabs with counts, keyboard arrows supported</p>
+      <div class="demo" data-snippet>
+        <div class="sm-tabs" role="tablist" data-sm-tabs>
+          <button class="sm-tab" role="tab" aria-selected="true" aria-controls="p-now" id="t-now">Now <span>7</span></button>
+          <button class="sm-tab" role="tab" aria-selected="false" aria-controls="p-later" id="t-later">Reply later <span>4</span></button>
+          <button class="sm-tab" role="tab" aria-selected="false" aria-controls="p-aside" id="t-aside">Set aside <span>2</span></button>
+          <button class="sm-tab hot" role="tab" aria-selected="false" aria-controls="p-feed" id="t-feed">Feed <span>12</span></button>
+        </div>
+        <div role="tabpanel" id="p-now" aria-labelledby="t-now" class="sm-body sm-muted">Seven items need you.</div>
+        <div role="tabpanel" id="p-later" aria-labelledby="t-later" class="sm-body sm-muted" hidden>Four replies, one sitting.</div>
+        <div role="tabpanel" id="p-aside" aria-labelledby="t-aside" class="sm-body sm-muted" hidden>Two things kept near at hand.</div>
+        <div role="tabpanel" id="p-feed" aria-labelledby="t-feed" class="sm-body sm-muted" hidden>The "hot" class is the drop-target look during a drag.</div>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Command bar, breadcrumb, pagination, menu, steps, side nav</p>
+      <div class="demo" data-snippet>
+        <label class="sm-command"><svg class="sm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input type="text" placeholder="Type to search, or a command"><span class="sm-kbd">K</span></label>
+        <ol class="sm-breadcrumb"><li><a href="#">Projects</a></li><li><a href="#">Platform</a></li><li><span aria-current="page">Ingestion worker</span></li></ol>
+        <nav aria-label="Pages"><ul class="sm-pagination"><li><a href="#">Previous</a></li><li><a href="#">1</a></li><li><a href="#" aria-current="page">2</a></li><li><a href="#">3</a></li><li><span class="sm-muted" style="padding:0 6px">...</span></li><li><a href="#">12</a></li><li><a href="#">Next</a></li></ul></nav>
+        <details class="sm-menu"><summary class="sm-btn">More actions</summary><ul class="sm-menu-list"><li><button type="button">Reply later <span class="sm-kbd">L</span></button></li><li><button type="button">Set aside <span class="sm-kbd">S</span></button></li><li><button type="button">Waiting on someone</button></li><li><hr class="sm-divider"></li><li><button type="button" class="danger">Remove from queue</button></li></ul></details>
+        <ol class="sm-steps"><li class="done">Google Workspace</li><li class="active">Slack</li><li>Jira</li><li>Key service</li></ol>
+        <nav class="sm-nav" style="max-width:220px" aria-label="Example"><a href="#" aria-current="page">Overview <span class="sm-badge muted">3</span></a><a href="#">People</a><a href="#">Audit</a></nav>
+      </div>
+      <pre class="code"></pre>
+    </section>
+
+    <section id="feedback" class="sm-stack">
+      <h2 class="sm-title">Feedback</h2>
+      <p class="sub">Alerts</p>
+      <div class="demo" data-snippet>
+        <div class="sm-alert"><svg class="sm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><div><b>Saved.</b> Your settings follow you to every device.</div></div>
+        <div class="sm-alert info"><svg class="sm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M12 11v5"/></svg><div><b>Heads up.</b> Slack returns at most 20 messages per search.</div></div>
+        <div class="sm-alert signal"><svg class="sm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 18H2z M12 10v4M12 17h.01"/></svg><div><b>Token expires in 2 days.</b> Reconnect Jira to keep syncing.</div><button type="button" class="sm-alert-x" aria-label="Dismiss">&times;</button></div>
+        <div class="sm-alert danger"><svg class="sm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg><div><b>Could not save.</b> The database refused the write: permission denied.</div></div>
+        <div class="sm-alert neutral"><div>Neutral note without an icon.</div></div>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Toast, dialogs, tooltip</p>
+      <div class="demo row" data-snippet>
+        <button class="sm-btn" onclick="SwissMoss.toast('Moved to Set aside', {action:'Undo', onAction:()=>SwissMoss.toast('Restored')})">Show a toast</button>
+        <button class="sm-btn" data-sm-dialog-open="dlg">Open a dialog</button>
+        <button class="sm-btn primary" data-sm-dialog-open="dlg-full">Open a full-screen interrupt</button>
+        <button class="sm-btn" data-tip="Shown on hover and focus">Hover for a tooltip</button>
+        <dialog class="sm-dialog" id="dlg"><div class="sm-dialog-body"><p class="sm-title">Revoke all tokens?</p><p class="sm-body sm-muted">Every connected person will need to sign in to their tools again. This cannot be undone.</p></div><div class="sm-dialog-actions"><button class="sm-btn quiet" data-sm-dialog-close>Cancel</button><button class="sm-btn signal" data-sm-dialog-close>Revoke all</button></div></dialog>
+        <dialog class="sm-dialog full" id="dlg-full"><div style="height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:6vw"><div style="display:flex;justify-content:space-between;color:var(--sm-on-moss-muted)"><span>13:58</span><span>Starts in 2 minutes</span></div><div><p class="sm-display-xl">Platform weekly sync</p><p class="sm-lead" style="color:var(--sm-on-moss-muted);margin-top:20px">14:00 to 14:45 with Priya, Tomas, Leah and 5 others.</p></div><div class="sm-cluster"><button class="sm-btn xl" style="background:var(--sm-on-moss);color:var(--sm-moss-deep);border-color:transparent" data-sm-dialog-close>Join</button><button class="sm-btn xl" style="color:var(--sm-on-moss);border-color:rgba(255,255,255,.55)" data-sm-dialog-close>Snooze 5 min</button><button class="sm-btn xl quiet" style="color:var(--sm-on-moss-muted)" data-sm-dialog-close>Dismiss</button></div></div></dialog>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Progress, spinner, skeleton, empty state</p>
+      <div class="demo" data-snippet>
+        <div class="sm-progress" aria-label="Upload" role="progressbar" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100"><span style="width:64%"></span></div>
+        <div class="sm-progress indeterminate" aria-label="Loading"><span></span></div>
+        <div class="sm-cluster"><span class="sm-spinner" aria-label="Loading"></span><span class="sm-caption">Reading your inbox</span></div>
+        <div style="display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:center"><span class="sm-skeleton circle"></span><div class="sm-stack tight"><span class="sm-skeleton title"></span><span class="sm-skeleton" style="width:85%"></span></div></div>
+        <div class="sm-empty"><span class="sm-empty-title">Nothing needs you right now.</span><p>New items land here as they arrive. Everything else waits quietly in the Feed.</p><button class="sm-btn">Open the Feed</button></div>
+      </div>
+      <pre class="code"></pre>
+    </section>
+
+    <section id="data" class="sm-stack">
+      <h2 class="sm-title">Data display</h2>
+      <p class="sub">Cards and stats</p>
+      <div class="demo" data-snippet>
+        <div class="sm-grid">
+          <div class="sm-card"><p class="sm-card-title">Plain card</p><p class="sm-body sm-muted">For things that float or take input.</p></div>
+          <div class="sm-card tinted"><p class="sm-card-title">Tinted card</p><p class="sm-body">For the thing being acted on, or a note.</p></div>
+          <div class="sm-card lift"><p class="sm-card-title">Lifted card</p><p class="sm-body sm-muted">For something being dragged or a popover.</p></div>
+        </div>
+        <div class="sm-grid">
+          <div class="sm-stat"><span class="sm-stat-value">48</span><span class="sm-stat-label">people connected</span><span class="sm-stat-delta">+6 this week</span></div>
+          <div class="sm-stat"><span class="sm-stat-value">1,204</span><span class="sm-stat-label">unwraps in 24 h</span><span class="sm-stat-delta">within the usual range</span></div>
+          <div class="sm-stat"><span class="sm-stat-value">3</span><span class="sm-stat-label">failed syncs</span><span class="sm-stat-delta down">needs a look</span></div>
+        </div>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">List rows, the queue pattern</p>
+      <div class="demo" data-snippet>
+        <ul class="sm-list">
+          <li><div style="min-width:0"><span class="sm-item">Rotate the production KMS keys before the audit window</span><span class="sm-caption">PLAT-412, Priya Nair</span></div><span class="sm-caption">12 min</span></li>
+          <li class="sm-row selected"><div style="min-width:0"><span class="sm-item">Checkout latency spike, root cause still open</span><span class="sm-caption">#incident-1002, Tomas Weber</span></div><span class="sm-caption">25 min</span></li>
+          <li><div style="min-width:0"><span class="sm-item">Observability contract renewal: counter-offer attached</span><span class="sm-caption">Email, Mara Lindqvist</span></div><span class="sm-caption">1 h</span></li>
+        </ul>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Table, avatars, accordion</p>
+      <div class="demo" data-snippet>
+        <div class="sm-table-wrap"><table class="sm-table"><thead><tr><th>Name</th><th>Group</th><th>Connected</th><th class="num">Last sync</th><th></th></tr></thead><tbody>
+          <tr><td><span class="sm-cluster"><span class="sm-avatar sm">AF</span>Ana Ferreira</span></td><td class="sm-muted">platform-admins</td><td><span class="sm-tag moss">Google</span> <span class="sm-tag moss">Slack</span> <span class="sm-tag moss">Jira</span></td><td class="num">2 min ago</td><td><button class="sm-btn sm quiet">Revoke</button></td></tr>
+          <tr><td><span class="sm-cluster"><span class="sm-avatar sm">PN</span>Priya Nair</span></td><td class="sm-muted">platform</td><td><span class="sm-tag moss">Google</span> <span class="sm-tag moss">Slack</span></td><td class="num">6 min ago</td><td><button class="sm-btn sm quiet">Revoke</button></td></tr>
+          <tr><td><span class="sm-cluster"><span class="sm-avatar sm">LO</span>Leah Okafor</span></td><td class="sm-muted">platform</td><td><span class="sm-tag signal">Jira expired</span></td><td class="num">1 h ago</td><td><button class="sm-btn sm quiet">Revoke</button></td></tr>
+        </tbody></table></div>
+        <div class="sm-cluster"><span class="sm-avatar">AF</span><span class="sm-avatar lg">PN</span><div class="sm-avatar-group"><span class="sm-avatar">AF</span><span class="sm-avatar">PN</span><span class="sm-avatar">TW</span><span class="sm-avatar muted">+5</span></div></div>
+        <div class="sm-accordion">
+          <details open><summary>What happens to the original email when I mark it done?</summary><div class="sm-accordion-body">By default the thread is marked read. Archiving is a separate switch.</div></details>
+          <details><summary>Can I undo?</summary><div class="sm-accordion-body">The item returns to its pile. A thread already marked read stays read.</div></details>
+        </div>
+      </div>
+      <pre class="code"></pre>
+    </section>
+
+    <section id="writing" class="sm-stack">
+      <h2 class="sm-title">Writing</h2>
+      <div class="sm-prose">
+        <ul>
+          <li>Headlines are full sentences with a full stop: "Four replies, one sitting."</li>
+          <li>Buttons say what happens: "Approve in Jira", "Send and next", "Revoke all tokens".</li>
+          <li>Hints explain consequences in one line: "Dismissing silences all your devices."</li>
+          <li>Sentence case everywhere. No exclamation marks, no emoji in the interface.</li>
+          <li>Signal colour means something is wrong or irreversible. It never decorates.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="js/swiss-moss.js"></script>
+<script>
+  // Swatches and spacing from the live custom properties, so they always match the active theme.
+  const names = ["paper","paper-deep","card","mist","line","line-strong","ink","muted","moss","moss-deep","on-moss","on-moss-muted","signal","signal-tint","danger","danger-tint","info","info-tint","toast","on-toast","focus"];
+  const sw = document.getElementById("swatches");
+  const drawSwatches = () => { const cs = getComputedStyle(document.documentElement); sw.innerHTML = names.map(n => `<div class="sm-swatch"><i style="background:var(--sm-${n})"></i><b>${n}</b><span class="sm-mono sm-muted">${cs.getPropertyValue("--sm-"+n).trim()}</span></div>`).join(""); };
+  drawSwatches(); new MutationObserver(drawSwatches).observe(document.documentElement, {attributes:true, attributeFilter:["data-theme"]}); matchMedia("(prefers-color-scheme: dark)").addEventListener("change", drawSwatches);
+  document.getElementById("spaces").innerHTML = [1,2,3,4,5,6,7,8,9].map(i => `<div style="display:flex;flex-direction:column;align-items:center;gap:6px"><span style="display:block;width:var(--sm-space-${i});height:var(--sm-space-${i});background:var(--sm-moss);border-radius:4px"></span><span class="sm-caption">${i}</span></div>`).join("");
+  // Code snippets copied from the demos, so docs and demos cannot drift.
+  document.querySelectorAll("[data-snippet]").forEach(d => { const pre = d.nextElementSibling; if (!pre || !pre.classList.contains("code")) return; const lines = d.innerHTML.split("\n").filter(l => l.trim()); const indent = Math.min(...lines.map(l => l.match(/^\s*/)[0].length)); pre.textContent = lines.map(l => l.slice(indent)).join("\n"); });
+  document.getElementById("c-ind").indeterminate = true;
+  document.querySelectorAll(".sm-alert-x").forEach(b => b.addEventListener("click", () => b.closest(".sm-alert").remove()));
+  // Side nav current section
+  const links = [...document.querySelectorAll(".sm-nav a")];
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(l => l.toggleAttribute("aria-current", l.getAttribute("href") === "#" + e.target.id)); }), {rootMargin:"-20% 0px -70% 0px"});
+  document.querySelectorAll("main section").forEach(s => io.observe(s));
+</script>
+</body>
+</html>
