@@ -7,6 +7,7 @@
 - The signal badge label uses `on-moss`, fixing 2.18:1 in dark
 - Switch knob and other physical left/right (select, table, tabs, alert dismiss, rows, button groups, chip and avatar overlaps, prose lists) now mirror in right-to-left
 - Checkbox tick and dash are masks painted with `on-moss`, so the indeterminate state shows a dash and both read correctly in dark, forced or from the system
+- The done step marker draws its tick as an `on-moss` mask too, so it is dark on light moss in dark
 - The select chevron follows the theme through `--sm-chevron` (dark uses the dark `muted`); `npm run check` fails if its colour drifts from `muted`
 - The indeterminate progress bar slides right to left in right-to-left
 - `npm run check` (scripts/check-contrast.js) computes WCAG ratios for declared token pairs in both themes and runs in CI

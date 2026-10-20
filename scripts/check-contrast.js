@@ -30,7 +30,7 @@ const PAIRS = [
   ["moss-deep", "paper", TEXT, "stat delta"],
   ["moss-deep", "card", TEXT, "file drop label"],
   ["moss-deep", "mist", TEXT, "moss tag, avatar"],
-  ["on-moss", "moss", TEXT, "primary button, badge"],
+  ["on-moss", "moss", TEXT, "primary button, badge, check, dash and step glyphs"],
   ["on-moss", "moss-deep", TEXT, "primary button hover"],
   ["on-moss-muted", "moss", TEXT, "full-screen dialog secondary text"],
   ["on-toast", "toast", TEXT, "toast text"],
