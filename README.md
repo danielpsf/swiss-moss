@@ -59,7 +59,7 @@ The choice is stored in `localStorage` under `sm-theme`.
 | Group | Tokens |
 | --- | --- |
 | Grounds | `paper`, `paper-deep`, `card`, `mist` |
-| Lines | `line`, `line-strong` |
+| Lines | `line` (dividers), `control-line` (control borders), `line-strong` |
 | Text | `ink`, `muted` |
 | Accent | `moss`, `moss-deep`, `on-moss`, `on-moss-muted`, `focus` |
 | Status | `signal`, `signal-tint`, `danger`, `danger-tint`, `info`, `info-tint` |
@@ -89,7 +89,7 @@ Every one is shown with its markup on the documentation page.
 
 ## Accessibility
 
-Focus rings on everything, 4.5:1 text contrast on `paper` and `card` in both themes, tabs with arrow-key navigation and proper roles, native `<dialog>` for modals, labels on every form control in the examples. If you find a gap, open an issue.
+Focus rings on everything, 4.5:1 text contrast and 3:1 control borders (`control-line`) in both themes, checked by `npm run check`, logical properties so components mirror in right-to-left, tabs with arrow-key navigation and proper roles, native `<dialog>` for modals, labels on every form control in the examples. If you find a gap, open an issue.
 
 ## Licence
 

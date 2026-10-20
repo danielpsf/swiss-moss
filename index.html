@@ -67,7 +67,7 @@
 
     <section id="tokens" class="sm-stack">
       <h2 class="sm-title">Tokens</h2>
-      <p class="sm-body sm-muted">Switch the theme above to see the second set. Both live in <span class="sm-mono">tokens/tokens.css</span>, and <span class="sm-mono">tokens/tokens.json</span> holds the same values for tooling.</p>
+      <p class="sm-body sm-muted">Switch the theme above to see the second set. Both live in <span class="sm-mono">tokens/tokens.css</span>, and <span class="sm-mono">tokens/tokens.json</span> holds the same values for tooling. <span class="sm-mono">line</span> is the hairline for dividers and cards; <span class="sm-mono">control-line</span> is the stronger border for inputs, selects, checkboxes, switch tracks and range tracks, at 3:1 against the page so a control is visible without its fill. <span class="sm-mono">npm run check</span> verifies every text and control pair in both themes.</p>
       <p class="sub">Colour</p>
       <div class="sm-grid" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr))" id="swatches"></div>
       <p class="sub">Spacing, on a 28px rhythm</p>
@@ -380,7 +380,7 @@
 <script src="js/swiss-moss.js"></script>
 <script>
   // Swatches and spacing from the live custom properties, so they always match the active theme.
-  const names = ["paper","paper-deep","card","mist","line","line-strong","ink","muted","moss","moss-deep","on-moss","on-moss-muted","signal","signal-tint","danger","danger-tint","info","info-tint","toast","on-toast","focus"];
+  const names = ["paper","paper-deep","card","mist","line","control-line","line-strong","ink","muted","moss","moss-deep","on-moss","on-moss-muted","signal","signal-tint","danger","danger-tint","info","info-tint","toast","on-toast","focus"];
   const sw = document.getElementById("swatches");
   const drawSwatches = () => { const cs = getComputedStyle(document.documentElement); sw.innerHTML = names.map(n => `<div class="sm-swatch"><i style="background:var(--sm-${n})"></i><b>${n}</b><span class="sm-mono sm-muted">${cs.getPropertyValue("--sm-"+n).trim()}</span></div>`).join(""); };
   drawSwatches(); new MutationObserver(drawSwatches).observe(document.documentElement, {attributes:true, attributeFilter:["data-theme"]}); matchMedia("(prefers-color-scheme: dark)").addEventListener("change", drawSwatches);
