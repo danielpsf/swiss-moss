@@ -197,7 +197,56 @@
     }
   };
 
-  SM.init = root => { SM.tabs.init(root); SM.tagInput.init(root); SM.file.init(root); SM.counter.init(root); SM.validate.init(root); };
+  /* ---------- menu button (ARIA menu pattern) ---------- */
+  // Markup: <div class="sm-menu" data-sm-menu> <button aria-haspopup="menu" aria-expanded="false" aria-controls="id">
+  // and <ul class="sm-menu-list" id="id" role="menu" hidden> with role=menuitem or menuitemradio buttons inside.
+  // Fires "sm:select" on the menu element with { item, value } (value is data-value, else the text).
+  SM.menu = {
+    init(root) {
+      (root || document).querySelectorAll("[data-sm-menu]").forEach(menu => {
+        if (menu.dataset.smReady) return; menu.dataset.smReady = "1";
+        const trigger = menu.querySelector("[aria-haspopup]");
+        const list = menu.querySelector("[role=menu]");
+        if (!trigger || !list) return;
+        const items = () => [...list.querySelectorAll("[role^=menuitem]")];
+        const isOpen = () => !list.hidden;
+        const open = where => {
+          list.hidden = false; trigger.setAttribute("aria-expanded", "true");
+          const all = items();
+          (where === "last" ? all[all.length - 1] : all.find(i => i.getAttribute("aria-checked") === "true") || all[0]).focus();
+        };
+        const close = refocus => { list.hidden = true; trigger.setAttribute("aria-expanded", "false"); if (refocus) trigger.focus(); };
+        trigger.addEventListener("click", () => (isOpen() ? close(false) : open()));
+        trigger.addEventListener("keydown", e => {
+          if (e.key === "ArrowDown") { e.preventDefault(); open(); }
+          else if (e.key === "ArrowUp") { e.preventDefault(); open("last"); }
+        });
+        list.addEventListener("keydown", e => {
+          const all = items(); const i = all.indexOf(document.activeElement);
+          if (e.key === "ArrowDown") { e.preventDefault(); all[(i + 1) % all.length].focus(); }
+          else if (e.key === "ArrowUp") { e.preventDefault(); all[(i - 1 + all.length) % all.length].focus(); }
+          else if (e.key === "Home") { e.preventDefault(); all[0].focus(); }
+          else if (e.key === "End") { e.preventDefault(); all[all.length - 1].focus(); }
+          else if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(true); }
+          else if (e.key === "Tab") close(false);
+          else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+            const next = [...all.slice(i + 1), ...all.slice(0, i + 1)].find(el => el.textContent.trim().toLowerCase().startsWith(e.key.toLowerCase()));
+            if (next) next.focus();
+          }
+        });
+        list.addEventListener("click", e => {
+          const item = e.target.closest("[role^=menuitem]"); if (!item) return;
+          if (item.getAttribute("role") === "menuitemradio") items().filter(i => i.getAttribute("role") === "menuitemradio").forEach(i => i.setAttribute("aria-checked", String(i === item)));
+          menu.dispatchEvent(new CustomEvent("sm:select", { detail: { item, value: item.dataset.value !== undefined ? item.dataset.value : item.textContent.trim() }, bubbles: true }));
+          close(true);
+        });
+        document.addEventListener("click", e => { if (isOpen() && !menu.contains(e.target)) close(false); });
+        menu.addEventListener("focusout", e => { if (isOpen() && e.relatedTarget && !menu.contains(e.relatedTarget)) close(false); });
+      });
+    }
+  };
+
+  SM.init = root => { SM.tabs.init(root); SM.menu.init(root); SM.tagInput.init(root); SM.file.init(root); SM.counter.init(root); SM.validate.init(root); };
   SM.theme.init(); SM.chips.init(); SM.dialog.init();
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => SM.init()); else SM.init();
   window.SwissMoss = SM;

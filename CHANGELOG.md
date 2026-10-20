@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Menu button: the ARIA menu pattern for `.sm-menu` through `data-sm-menu` (keyboard, `menuitemradio`, `sm:select`), with a checked style
+- Menu list uses logical properties and mirrors in right-to-left; the `end` modifier joins `right`
+- Behaviours no longer stop when `localStorage` is blocked
+
 ## 1.0.0
 
 First public release.

@@ -11,7 +11,7 @@ Live documentation: enable GitHub Pages on this repository (Settings, Pages, Sou
 ```
 tokens/   tokens.css (custom properties, both themes)  tokens.json (same values for tooling)
 css/      swiss-moss.css (every component, prefixed sm-)
-js/       swiss-moss.js (theme, tabs, tag input, toasts, dialogs, file drop, counters, validation)
+js/       swiss-moss.js (theme, tabs, menu, tag input, toasts, dialogs, file drop, counters, validation)
 examples/ a settings page built only from the system
 index.html  the documentation and gallery, served by GitHub Pages
 ```
@@ -73,7 +73,7 @@ Every value is a custom property prefixed `--sm-`, for example `var(--sm-moss)`.
 
 ## Components
 
-Buttons (primary, ghost, quiet, signal, danger, sizes, icon, loading, groups), chips (toggle, removable, avatar, invalid), tags, badges, labels, keyboard hints, avatars and avatar groups, fields with hint and error, inputs for text, email, password, number, url, tel, date, time, search, color, read-only and disabled, input groups with icons and affixes, textarea with character counter, select, file drop zone, tag inputs (emails, single value, suggestions, numbers with a maximum), checkbox with indeterminate, radio, switch, segmented control, range, tabs with keyboard support, command bar, breadcrumb, pagination, menu, steps, side nav, alerts in five tones, toasts with an action, dialogs and a full-screen variant, tooltips, progress bars, spinner, skeletons, empty states, cards in four looks, stats, list rows with selected state, tables, accordion.
+Buttons (primary, ghost, quiet, signal, danger, sizes, icon, loading, groups), chips (toggle, removable, avatar, invalid), tags, badges, labels, keyboard hints, avatars and avatar groups, fields with hint and error, inputs for text, email, password, number, url, tel, date, time, search, color, read-only and disabled, input groups with icons and affixes, textarea with character counter, select, file drop zone, tag inputs (emails, single value, suggestions, numbers with a maximum), checkbox with indeterminate, radio, switch, segmented control, range, tabs with keyboard support, command bar, breadcrumb, pagination, menu and menu button, steps, side nav, alerts in five tones, toasts with an action, dialogs and a full-screen variant, tooltips, progress bars, spinner, skeletons, empty states, cards in four looks, stats, list rows with selected state, tables, accordion.
 
 Every one is shown with its markup on the documentation page.
 
@@ -84,6 +84,7 @@ Every one is shown with its markup on the documentation page.
 - `theme.set("light" | "dark" | "auto")`, `theme.toggle()`
 - `toast(text, { action, onAction, duration })`
 - `init(root)` to wire components added after page load
+- Menu button: `data-sm-menu` wires the ARIA menu pattern (arrow keys, Home, End, type-ahead, Escape) and fires `sm:select`
 - Tag inputs: `element.getValues()`, `element.setValues([...])`, and an `sm:change` event
 
 ## Accessibility

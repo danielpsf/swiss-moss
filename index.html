@@ -261,8 +261,30 @@
         <ol class="sm-breadcrumb"><li><a href="#">Projects</a></li><li><a href="#">Platform</a></li><li><span aria-current="page">Ingestion worker</span></li></ol>
         <nav aria-label="Pages"><ul class="sm-pagination"><li><a href="#">Previous</a></li><li><a href="#">1</a></li><li><a href="#" aria-current="page">2</a></li><li><a href="#">3</a></li><li><span class="sm-muted" style="padding:0 6px">...</span></li><li><a href="#">12</a></li><li><a href="#">Next</a></li></ul></nav>
         <details class="sm-menu"><summary class="sm-btn">More actions</summary><ul class="sm-menu-list"><li><button type="button">Reply later <span class="sm-kbd">L</span></button></li><li><button type="button">Set aside <span class="sm-kbd">S</span></button></li><li><button type="button">Waiting on someone</button></li><li><hr class="sm-divider"></li><li><button type="button" class="danger">Remove from queue</button></li></ul></details>
+        <div class="sm-menu" data-sm-menu>
+          <button type="button" class="sm-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="m-sort">Sort by</button>
+          <ul class="sm-menu-list" id="m-sort" role="menu" hidden>
+            <li role="none"><button type="button" role="menuitemradio" aria-checked="true" data-value="recent">Most recent</button></li>
+            <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-value="name">Name</button></li>
+            <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-value="size">Size</button></li>
+          </ul>
+        </div>
         <ol class="sm-steps"><li class="done">Google Workspace</li><li class="active">Slack</li><li>Jira</li><li>Key service</li></ol>
         <nav class="sm-nav" style="max-width:220px" aria-label="Example"><a href="#" aria-current="page">Overview <span class="sm-badge muted">3</span></a><a href="#">People</a><a href="#">Audit</a></nav>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Menu button, keyboard and right-to-left</p>
+      <p class="sm-body sm-muted">The menu button follows the ARIA menu-button pattern. Down or Up arrow on the button opens the list on the first or last item, or on the checked one. Arrow keys, Home and End move, a letter jumps to the next item that starts with it, Escape closes and returns focus to the button, and a click or Tab outside closes it. Items are buttons with <code class="sm-mono">role="menuitem"</code> or <code class="sm-mono">role="menuitemradio"</code> (with <code class="sm-mono">aria-checked</code>). Choosing one fires an <code class="sm-mono">sm:select</code> event on the menu with <code class="sm-mono">{ item, value }</code>. The list lines up with the start edge of the button, or with its end edge when you add the <code class="sm-mono">end</code> modifier (use it for a menu near the end edge of the page), and it mirrors with <code class="sm-mono">dir="rtl"</code>. Add menus after page load with <code class="sm-mono">SwissMoss.init(root)</code>.</p>
+      <div class="demo" data-snippet>
+        <div dir="rtl" lang="ar">
+          <div class="sm-menu" data-sm-menu>
+            <button type="button" class="sm-btn" aria-haspopup="menu" aria-expanded="false" aria-controls="m-lang">اللغة</button>
+            <ul class="sm-menu-list" id="m-lang" role="menu" hidden>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="true" data-value="ar">العربية</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-value="en" lang="en" dir="ltr">English</button></li>
+            </ul>
+          </div>
+        </div>
       </div>
       <pre class="code"></pre>
     </section>
