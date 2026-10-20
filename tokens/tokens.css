@@ -1,8 +1,8 @@
 /* Swiss Moss tokens. Light ("Paper") is the default; dark ("Night") follows the system, or data-theme="dark" on <html>. */
 :root {
-  --sm-paper:#FBF8F0; --sm-paper-deep:#F1EDE0; --sm-card:#FFFFFF; --sm-mist:#EEF3EB; --sm-line:#E6E0CF; --sm-line-strong:#141A16;
-  --sm-ink:#141A16; --sm-muted:#6F756F; --sm-moss:#4A7A52; --sm-moss-deep:#355B3C; --sm-on-moss:#FFFFFF; --sm-on-moss-muted:#DCE9DD;
-  --sm-signal:#A8641E; --sm-signal-tint:#F7EBDD; --sm-danger:#9C3B2E; --sm-danger-tint:#F7E3DF; --sm-info:#2F5C7A; --sm-info-tint:#E4EDF3;
+  --sm-paper:#FBF8F0; --sm-paper-deep:#F1EDE0; --sm-card:#FFFFFF; --sm-mist:#EEF3EB; --sm-line:#E6E0CF; --sm-control-line:#908872; --sm-line-strong:#141A16;
+  --sm-ink:#141A16; --sm-muted:#686D68; --sm-moss:#4A7A52; --sm-moss-deep:#355B3C; --sm-on-moss:#FFFFFF; --sm-on-moss-muted:#EFF5EF;
+  --sm-signal:#9B5C1C; --sm-signal-tint:#F7EBDD; --sm-danger:#9C3B2E; --sm-danger-tint:#F7E3DF; --sm-info:#2F5C7A; --sm-info-tint:#E4EDF3;
   --sm-toast:#141A16; --sm-on-toast:#FBF8F0; --sm-on-toast-accent:#B9DDBF; --sm-focus:#4A7A52;
   --sm-shadow-rest:0 2px 8px rgba(20,26,22,.05); --sm-shadow-lift:0 18px 40px rgba(20,26,22,.18);
   --sm-font-display:"Inter Tight",Inter,system-ui,sans-serif;
@@ -16,7 +16,7 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --sm-paper:#121A15; --sm-paper-deep:#18231C; --sm-card:#1A271F; --sm-mist:#1E3127; --sm-line:#2A3A30; --sm-line-strong:#EDE6D6;
+    --sm-paper:#121A15; --sm-paper-deep:#18231C; --sm-card:#1A271F; --sm-mist:#1E3127; --sm-line:#2A3A30; --sm-control-line:#557561; --sm-line-strong:#EDE6D6;
     --sm-ink:#EDE6D6; --sm-muted:#9AA89E; --sm-moss:#7FC48F; --sm-moss-deep:#A9D8B2; --sm-on-moss:#121A15; --sm-on-moss-muted:#2A4A33;
     --sm-signal:#E0A36B; --sm-signal-tint:#3A2A1A; --sm-danger:#E08A7C; --sm-danger-tint:#3A1F1B; --sm-info:#8CB8D6; --sm-info-tint:#1B2A36;
     --sm-toast:#EDE6D6; --sm-on-toast:#121A15; --sm-on-toast-accent:#355B3C; --sm-focus:#7FC48F;
@@ -25,7 +25,7 @@
   }
 }
 :root[data-theme="dark"] {
-  --sm-paper:#121A15; --sm-paper-deep:#18231C; --sm-card:#1A271F; --sm-mist:#1E3127; --sm-line:#2A3A30; --sm-line-strong:#EDE6D6;
+  --sm-paper:#121A15; --sm-paper-deep:#18231C; --sm-card:#1A271F; --sm-mist:#1E3127; --sm-line:#2A3A30; --sm-control-line:#557561; --sm-line-strong:#EDE6D6;
   --sm-ink:#EDE6D6; --sm-muted:#9AA89E; --sm-moss:#7FC48F; --sm-moss-deep:#A9D8B2; --sm-on-moss:#121A15; --sm-on-moss-muted:#2A4A33;
   --sm-signal:#E0A36B; --sm-signal-tint:#3A2A1A; --sm-danger:#E08A7C; --sm-danger-tint:#3A1F1B; --sm-info:#8CB8D6; --sm-info-tint:#1B2A36;
   --sm-toast:#EDE6D6; --sm-on-toast:#121A15; --sm-on-toast-accent:#355B3C; --sm-focus:#7FC48F;
