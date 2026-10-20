@@ -7,5 +7,6 @@
   "style": "css/swiss-moss.css",
   "main": "js/swiss-moss.js",
   "keywords": ["design-system", "css", "tokens", "components", "dark-mode"],
-  "sideEffects": true
+  "sideEffects": true,
+  "scripts": { "check": "node scripts/check-contrast.js" }
 }
