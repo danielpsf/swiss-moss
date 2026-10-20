@@ -6,6 +6,9 @@
 - New `control-line` token (light #908872, dark #557561) at 3:1 for control boundaries (WCAG 1.4.11): inputs, selects, textareas, tag inputs, file drop, checkbox, radio, switch track, segmented border, range track. `line` stays the subtle divider
 - The signal badge label uses `on-moss`, fixing 2.18:1 in dark
 - Switch knob and other physical left/right (select, table, tabs, alert dismiss, rows, button groups, chip and avatar overlaps, prose lists) now mirror in right-to-left
+- Checkbox tick and dash are masks painted with `on-moss`, so the indeterminate state shows a dash and both read correctly in dark, forced or from the system
+- The select chevron follows the theme through `--sm-chevron` (dark uses the dark `muted`); `npm run check` fails if its colour drifts from `muted`
+- The indeterminate progress bar slides right to left in right-to-left
 - `npm run check` (scripts/check-contrast.js) computes WCAG ratios for declared token pairs in both themes and runs in CI
 - Menu button: the ARIA menu pattern for `.sm-menu` through `data-sm-menu` (keyboard, `menuitemradio`, `sm:select`), with a checked style
 - Menu list uses logical properties and mirrors in right-to-left; the `end` modifier joins `right`

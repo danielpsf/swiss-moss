@@ -71,6 +71,14 @@ const ratio = (a, b) => {
 };
 
 let failed = 0;
+// The select chevron is a data-URI SVG, so its stroke hex cannot use a variable. Keep it equal to muted.
+const chevrons = [...fs.readFileSync(path.join(__dirname, "..", "css", "swiss-moss.css"), "utf8")
+  .matchAll(/--sm-chevron:url\("[^"]*stroke='%23([0-9A-Fa-f]{6})'/g)].map((m) => "#" + m[1].toUpperCase());
+const wantChevrons = [themes.light.muted, themes.dark.muted, themes.dark.muted]; // light, system dark, data-theme dark
+if (JSON.stringify(chevrons) !== JSON.stringify(wantChevrons)) {
+  console.log(`FAIL select chevron colours ${chevrons} must equal muted ${wantChevrons}`);
+  failed++;
+}
 // The two dark blocks must stay identical, or system-dark and forced-dark would drift.
 if (JSON.stringify(vars(mediaBody)) !== JSON.stringify(themes.dark)) {
   console.log("FAIL dark tokens differ between the prefers-color-scheme block and [data-theme=dark]");
