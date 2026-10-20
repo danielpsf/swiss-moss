@@ -3,13 +3,19 @@
 (function () {
   "use strict";
   const SM = {};
+  // localStorage throws in private windows and with blocked site data; the system must still work.
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* not saved */ } },
+    del(k) { try { localStorage.removeItem(k); } catch (e) { /* nothing to remove */ } }
+  };
 
   /* ---------- theme ---------- */
   SM.theme = {
     get() { return document.documentElement.getAttribute("data-theme") || "auto"; },
     set(mode) {
-      if (mode === "auto") { document.documentElement.removeAttribute("data-theme"); localStorage.removeItem("sm-theme"); }
-      else { document.documentElement.setAttribute("data-theme", mode); localStorage.setItem("sm-theme", mode); }
+      if (mode === "auto") { document.documentElement.removeAttribute("data-theme"); store.del("sm-theme"); }
+      else { document.documentElement.setAttribute("data-theme", mode); store.set("sm-theme", mode); }
       document.querySelectorAll("[data-sm-theme]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.smTheme === mode)));
     },
     toggle() {
@@ -17,7 +23,7 @@
       SM.theme.set(dark ? "light" : "dark");
     },
     init() {
-      const saved = localStorage.getItem("sm-theme");
+      const saved = store.get("sm-theme");
       if (saved) document.documentElement.setAttribute("data-theme", saved);
       document.addEventListener("click", e => {
         const b = e.target.closest("[data-sm-theme]");
