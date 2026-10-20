@@ -203,7 +203,9 @@
   // Fires "sm:select" on the menu element with { item, value } (value is data-value, else the text).
   SM.menu = {
     init(root) {
-      (root || document).querySelectorAll("[data-sm-menu]").forEach(menu => {
+      // init(element) also wires the element itself, so a menu added after load can be passed straight in.
+      const r = root || document;
+      [...(r.matches && r.matches("[data-sm-menu]") ? [r] : []), ...r.querySelectorAll("[data-sm-menu]")].forEach(menu => {
         if (menu.dataset.smReady) return; menu.dataset.smReady = "1";
         const trigger = menu.querySelector("[aria-haspopup]");
         const list = menu.querySelector("[role=menu]");
