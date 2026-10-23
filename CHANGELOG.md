@@ -1,6 +1,20 @@
 # Changelog
 
-## Unreleased
+## 1.1.0 (2026-10-23)
+
+New components, each with CSS, a demo and markup in the documentation:
+
+- Overlays: popover (native `popover` with placement), sheet, drawer, responsive dialog (a drawer on phones), dialog header, context menu, command palette
+- Inputs: number stepper, one-time code, password reveal and strength meter, money input, inline select in input groups (phone numbers), calendar, date picker, date range, multi-select through `menuitemcheckbox`, info tip, dashed button
+- Structure: top bar, page header, page banner with remembered dismissal, labeled divider, carousel, aspect ratio, scroll area, `sm-flip` for direction-aware icons
+- Data: status dot, delta chip, sparkline, bar list, description list, timeline, code block with copy and line numbers, truncation with tooltip, clamped text with "show more", error empty state
+- Tables: sortable columns, row selection with indeterminate header, selected rows, sticky header, toolbar, bulk action bar
+- Copy to clipboard with a screen-reader announcement
+- `[hidden]` always hides, so components with their own `display` respect it
+- Steps stack on narrow screens; the documentation page no longer scrolls sideways on phones
+- `npm run check` also runs `scripts/check-behaviours.js` for the calendar, password, money and sort helpers
+- `DESIGN.md` for agents and people, and a figCraft design file in `design/`
+
 
 - Accessibility: light `muted` (#6F756F to #686D68) and `signal` (#A8641E to #9B5C1C) reach 4.5:1 on paper, paper-deep, signal-tint and mist; `on-moss-muted` (#DCE9DD to #EFF5EF) reaches 4.5:1 on moss
 - New `control-line` token (light #908872, dark #557561) at 3:1 for control boundaries (WCAG 1.4.11): inputs, selects, textareas, tag inputs, file drop, checkbox, radio, switch track, segmented border, range track. `line` stays the subtle divider

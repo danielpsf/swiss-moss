@@ -13,6 +13,8 @@ tokens/   tokens.css (custom properties, both themes)  tokens.json (same values 
 css/      swiss-moss.css (every component, prefixed sm-)
 js/       swiss-moss.js (theme, tabs, menu, tag input, toasts, dialogs, file drop, counters, validation)
 examples/ a settings page built only from the system
+design/   swiss-moss.figcraft, the design file for working by hand
+DESIGN.md the system in one page, written for agents and people
 index.html  the documentation and gallery, served by GitHub Pages
 ```
 
@@ -73,9 +75,17 @@ Every value is a custom property prefixed `--sm-`, for example `var(--sm-moss)`.
 
 ## Components
 
-Buttons (primary, ghost, quiet, signal, danger, sizes, icon, loading, groups), chips (toggle, removable, avatar, invalid), tags, badges, labels, keyboard hints, avatars and avatar groups, fields with hint and error, inputs for text, email, password, number, url, tel, date, time, search, color, read-only and disabled, input groups with icons and affixes, textarea with character counter, select, file drop zone, tag inputs (emails, single value, suggestions, numbers with a maximum), checkbox with indeterminate, radio, switch, segmented control, range, tabs with keyboard support, command bar, breadcrumb, pagination, menu and menu button, steps, side nav, alerts in five tones, toasts with an action, dialogs and a full-screen variant, tooltips, progress bars, spinner, skeletons, empty states, cards in four looks, stats, list rows with selected state, tables, accordion.
+Buttons (primary, ghost, quiet, signal, danger, dashed, sizes, icon, loading, groups), chips (toggle, removable, avatar, invalid), tags, badges, status dots, delta chips, labels, keyboard hints, info tips, avatars and avatar groups.
 
-Every one is shown with its markup on the documentation page.
+Inputs: fields with hint and error, every native input type, input groups with icons, affixes and an inline select (phone numbers), textarea with character counter, select, file drop zone, tag inputs (emails, single value, suggestions, numbers with a maximum), number stepper, one-time code, password with reveal and strength meter, money input, calendar, date picker and date range, multi-select. Checkbox with indeterminate, radio, switch, segmented control, range.
+
+Navigation and structure: tabs with keyboard support, top bar, page header, banner, command bar, command palette, breadcrumb, pagination, menu and menu button, context menu, steps, side nav, carousel, labeled divider, aspect ratio, scroll area.
+
+Overlays and feedback: alerts in five tones, toasts with an action, dialogs (full-screen, sheet, drawer, and one that becomes a drawer on phones), popovers, tooltips, progress bars, spinner, skeletons, empty and error states.
+
+Data: cards in four looks, stats with delta and sparkline, bar list, list rows with selected state, tables with sortable columns, row selection, sticky header, toolbar and bulk action bar, description list, timeline, code block with copy and line numbers, truncation with a tooltip, clamped text with "show more", accordion.
+
+Every one is shown with its markup on the documentation page. `DESIGN.md` maps common component names (popover, sheet, combobox, data table, OTP and so on) to Swiss Moss markup.
 
 ## Behaviours
 
@@ -86,10 +96,19 @@ Every one is shown with its markup on the documentation page.
 - `init(root)` to wire components added after page load
 - Menu button: `data-sm-menu` wires the ARIA menu pattern (arrow keys, Home, End, type-ahead, Escape) and fires `sm:select`
 - Tag inputs: `element.getValues()`, `element.setValues([...])`, and an `sm:change` event
+- Menus: `menuitemcheckbox` items stay open and fire `sm:change` with `{ values }`; a `.sm-badge` in the trigger counts them
+- Context menu: `data-sm-context-menu="list-id"` on an area (right-click, Menu key or Shift+F10)
+- Popover: native `popover` and `popovertarget`; Swiss Moss places it under its button. `popover.place(el, anchor)` for your own
+- Command palette: `<dialog data-sm-palette="k">` opens with Cmd/Ctrl+K and fires `sm:select`
+- Calendar: `data-sm-calendar="single" | "range"`, `data-sm-for` to fill an input, `sm:change` with `{ value, start, end }`; ranges are ISO 8601 intervals
+- Inputs: `data-sm-stepper`, `data-sm-otp="6"`, `data-sm-reveal`, `data-sm-strength`, `data-sm-money` (parses and formats in the page locale)
+- Copy: `data-sm-copy="text"` or `data-sm-copy-target="id"`, announced to screen readers
+- Banner: `data-sm-banner="key"` remembers a dismissal; truncation: `data-sm-truncate`, `data-sm-expand`; carousel: `data-sm-carousel`
+- Tables: `data-sm-table` sorts on `.sm-sort` buttons, selects with `data-sm-select-all` / `data-sm-select-row`, and drives `data-sm-bulk-for`; fires `sm:sort` and `sm:selection`
 
 ## Accessibility
 
-Focus rings on everything, 4.5:1 text contrast and 3:1 control borders (`control-line`) in both themes, checked by `npm run check`, logical properties so components mirror in right-to-left, tabs with arrow-key navigation and proper roles, native `<dialog>` for modals, labels on every form control in the examples. If you find a gap, open an issue.
+Focus rings on everything, 4.5:1 text contrast and 3:1 control borders (`control-line`) in both themes, checked by `npm run check` (which also tests the date, password, money and sort helpers), logical properties so components mirror in right-to-left, tabs with arrow-key navigation and proper roles, native `<dialog>` for modals, labels on every form control in the examples. If you find a gap, open an issue.
 
 ## Licence
 
