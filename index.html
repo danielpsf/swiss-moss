@@ -26,16 +26,16 @@
   .brand i{width:28px;height:28px;border-radius:7px;background:var(--sm-moss);display:inline-block;position:relative}
   .brand i::before,.brand i::after{content:"";position:absolute;left:7px;right:7px;height:2px;border-radius:1px;background:var(--sm-on-moss)}
   .brand i::before{top:9px}.brand i::after{top:15px;right:12px}
-  @media (max-width:860px){.doc{grid-template-columns:1fr}.doc aside{position:static;max-height:none}}
+  @media (max-width:860px){.doc{grid-template-columns:minmax(0,1fr)}.doc aside{position:static;max-height:none}}
 </style>
 </head>
 <body>
 <div class="doc">
   <aside>
     <nav class="sm-nav" aria-label="Sections">
-      <a href="#start">Start here</a><a href="#tokens">Tokens</a><a href="#typography">Typography</a><a href="#buttons">Buttons</a><a href="#chips">Chips, tags, badges</a><a href="#inputs">Inputs</a><a href="#tag-input">Tag inputs</a><a href="#choices">Selection controls</a><a href="#navigation">Navigation</a><a href="#feedback">Feedback</a><a href="#data">Data display</a><a href="#writing">Writing</a>
+      <a href="#start">Start here</a><a href="#tokens">Tokens</a><a href="#typography">Typography</a><a href="#buttons">Buttons</a><a href="#chips">Chips, tags, badges</a><a href="#inputs">Inputs</a><a href="#tag-input">Tag inputs</a><a href="#choices">Selection controls</a><a href="#navigation">Navigation</a><a href="#feedback">Feedback</a><a href="#data">Data display</a><a href="#more-inputs">More inputs</a><a href="#overlays">Overlays</a><a href="#structure">Page structure</a><a href="#tables">Tables and records</a><a href="#writing">Writing</a>
     </nav>
-    <p class="sm-caption" style="margin:20px 12px 0">v1.0.0, Apache-2.0</p>
+    <p class="sm-caption" style="margin:20px 12px 0">v1.1.0, Apache-2.0</p>
   </aside>
 
   <main>
@@ -61,7 +61,7 @@
         <p>Copy <code>tokens/</code>, <code>css/</code> and <code>js/</code> into your project, or point at them from this repository. Load Inter and Inter Tight from Google Fonts (both are open fonts), then:</p>
         <pre><code>&lt;link rel="stylesheet" href="css/swiss-moss.css"&gt;
 &lt;script src="js/swiss-moss.js" defer&gt;&lt;/script&gt;</code></pre>
-        <p>Every class is prefixed with <code>sm-</code>. Every colour, size and radius is a custom property prefixed <code>--sm-</code>, so your own CSS can use them too. Dark mode follows the system by default; add <code>data-theme="dark"</code> or <code>"light"</code> on <code>&lt;html&gt;</code> to force one, or use the buttons above, which persist the choice.</p>
+        <p>Every class is prefixed with <code>sm-</code>. Every colour, size and radius is a custom property prefixed <code>--sm-</code>, so your own CSS can use them too. Building with an agent? Point it at <a href="DESIGN.md">DESIGN.md</a>: tokens, rules and a component index on one page. Designing by hand? Open <span class="sm-mono">design/swiss-moss.figcraft</span> in figCraft. Dark mode follows the system by default; add <code>data-theme="dark"</code> or <code>"light"</code> on <code>&lt;html&gt;</code> to force one, or use the buttons above, which persist the choice.</p>
       </div>
     </section>
 
@@ -358,6 +358,196 @@
           <details open><summary>What happens to the original email when I mark it done?</summary><div class="sm-accordion-body">By default the thread is marked read. Archiving is a separate switch.</div></details>
           <details><summary>Can I undo?</summary><div class="sm-accordion-body">The item returns to its pile. A thread already marked read stays read.</div></details>
         </div>
+      </div>
+      <pre class="code"></pre>
+    </section>
+
+    <section id="more-inputs" class="sm-stack">
+      <h2 class="sm-title">More inputs</h2>
+      <p class="sm-body sm-muted">Steppers, one-time codes, passwords, money, phone numbers, dates and multi-select. Each is plain HTML first; the behaviour is opt-in through a <span class="sm-mono">data-sm-*</span> attribute.</p>
+      <p class="sub">Number stepper and one-time code</p>
+      <div class="demo row" data-snippet>
+        <div class="sm-field"><label class="sm-label" for="seats">Seats</label>
+          <div class="sm-stepper" data-sm-stepper><button type="button" class="sm-btn icon" data-step="-1" aria-label="Fewer seats">&minus;</button><input class="sm-input" id="seats" type="number" value="3" min="1" max="10"><button type="button" class="sm-btn icon" data-step="1" aria-label="More seats">+</button></div></div>
+        <div class="sm-field"><span class="sm-label">Code from your phone</span>
+          <div class="sm-otp" data-sm-otp="6"><input class="sm-input" name="code" aria-label="Verification code"></div></div>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Password with reveal and strength</p>
+      <div class="demo" data-snippet>
+        <div class="sm-field" style="max-width:360px"><label class="sm-label" for="pw">New password</label>
+          <div class="sm-input-group"><input class="sm-input" id="pw" type="password" autocomplete="new-password"><button type="button" class="sm-reveal" data-sm-reveal="pw" aria-pressed="false">Show</button></div>
+          <div class="sm-strength" data-sm-strength="pw"><span></span><span></span><span></span><span></span><b></b></div>
+          <span class="sm-hint">Twelve characters or more, mixed case, a digit and a symbol.</span></div>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Money and phone</p>
+      <div class="demo" data-snippet>
+        <div class="sm-form-row">
+          <div class="sm-field"><label class="sm-label" for="amt">Monthly budget</label>
+            <div class="sm-input-group"><span class="sm-affix">EUR</span><input class="sm-input" id="amt" data-sm-money inputmode="decimal" min="0" max="100000" placeholder="0.00"></div>
+            <span class="sm-hint">Type 1234.5 and leave the field.</span></div>
+          <div class="sm-field"><label class="sm-label" for="tel">Phone</label>
+            <div class="sm-input-group"><select class="sm-select" aria-label="Country code"><option>+49</option><option>+34</option><option>+351</option><option>+31</option></select><span class="sm-sep"></span><input class="sm-input" id="tel" type="tel" autocomplete="tel-national" placeholder="30 901820"></div></div>
+        </div>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Calendar, date picker and date range</p>
+      <div class="demo row" data-snippet style="align-items:flex-start">
+        <div class="sm-calendar" data-sm-calendar="single" data-value="2026-10-23"></div>
+        <div class="sm-field"><label class="sm-label" for="due">Due date</label>
+          <div class="sm-input-group"><input class="sm-input" id="due" placeholder="YYYY-MM-DD"><button type="button" class="sm-btn icon sm quiet" popovertarget="due-pop" aria-label="Choose a date"><svg class="sm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></button></div>
+          <div class="sm-popover" popover id="due-pop"><div class="sm-calendar" data-sm-calendar="single" data-sm-for="due"></div></div></div>
+        <div class="sm-field"><label class="sm-label" for="period">Period</label>
+          <div class="sm-input-group"><input class="sm-input" id="period" readonly placeholder="Start/end"><button type="button" class="sm-btn icon sm quiet" popovertarget="period-pop" aria-label="Choose a period"><svg class="sm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></button></div>
+          <div class="sm-popover" popover id="period-pop"><div class="sm-calendar" data-sm-calendar="range" data-sm-for="period"></div></div></div>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Multi-select: a menu of checkbox items, the badge counts the choices</p>
+      <div class="demo row" data-snippet>
+        <div class="sm-menu" data-sm-menu>
+          <button type="button" class="sm-btn dashed" aria-haspopup="menu" aria-expanded="false" aria-controls="m-status">Status <span class="sm-badge muted" hidden></span></button>
+          <ul class="sm-menu-list" id="m-status" role="menu" hidden>
+            <li role="none"><button type="button" role="menuitemcheckbox" aria-checked="true" data-value="open">Open</button></li>
+            <li role="none"><button type="button" role="menuitemcheckbox" aria-checked="false" data-value="waiting">Waiting</button></li>
+            <li role="none"><button type="button" role="menuitemcheckbox" aria-checked="false" data-value="done">Done</button></li>
+          </ul>
+        </div>
+      </div>
+      <pre class="code"></pre>
+    </section>
+
+    <section id="overlays" class="sm-stack">
+      <h2 class="sm-title">Overlays</h2>
+      <p class="sm-body sm-muted">Popovers use the native <span class="sm-mono">popover</span> attribute, so opening, closing and light dismiss need no script; Swiss Moss only places them under their button. Sheets, drawers and the palette are <span class="sm-mono">&lt;dialog&gt;</span> elements and open with <span class="sm-mono">data-sm-dialog-open</span>.</p>
+      <p class="sub">Popover and info tip</p>
+      <div class="demo row" data-snippet>
+        <button type="button" class="sm-btn" popovertarget="pop-share">Share</button>
+        <div class="sm-popover" popover id="pop-share"><div class="sm-stack tight"><p class="sm-body"><b>Anyone with the link can view.</b></p><p class="sm-caption">Links expire after 30 days.</p><button type="button" class="sm-btn sm" data-sm-copy="https://example.com/r/7f3a"><span data-sm-copy-label>Copy link</span></button></div></div>
+        <span class="sm-cluster">Seat count <button type="button" class="sm-infotip" data-tip="Paid seats, not invited people" aria-label="About seat count">i</button></span>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Sheet, drawer, and a dialog that becomes a drawer on phones</p>
+      <div class="demo row" data-snippet>
+        <button type="button" class="sm-btn" data-sm-dialog-open="sheet">Open sheet</button>
+        <button type="button" class="sm-btn" data-sm-dialog-open="drawer">Open drawer</button>
+        <button type="button" class="sm-btn" data-sm-dialog-open="resp">Open responsive dialog</button>
+        <dialog class="sm-dialog sheet" id="sheet" aria-labelledby="sheet-t"><div class="sm-dialog-head"><p class="sm-heading" id="sheet-t">Filters</p><button type="button" class="sm-btn icon quiet" data-sm-dialog-close aria-label="Close">&times;</button></div><div class="sm-dialog-body"><label class="sm-check"><input type="checkbox" checked> Only mine</label><label class="sm-check"><input type="checkbox"> Include archived</label></div><div class="sm-dialog-actions"><button type="button" class="sm-btn quiet" data-sm-dialog-close>Reset</button><button type="button" class="sm-btn primary" data-sm-dialog-close>Show 24 results</button></div></dialog>
+        <dialog class="sm-dialog drawer" id="drawer" aria-labelledby="drawer-t"><div class="sm-dialog-body"><p class="sm-heading" id="drawer-t">Move to</p><nav class="sm-nav"><a href="#" data-sm-dialog-close>Reply later</a><a href="#" data-sm-dialog-close>Set aside</a><a href="#" data-sm-dialog-close>Done</a></nav></div></dialog>
+        <dialog class="sm-dialog responsive" id="resp" aria-labelledby="resp-t"><div class="sm-dialog-body"><p class="sm-title" id="resp-t">Archive 3 threads?</p><p class="sm-body sm-muted">They leave the queue and come back if someone replies.</p></div><div class="sm-dialog-actions"><button type="button" class="sm-btn quiet" data-sm-dialog-close>Cancel</button><button type="button" class="sm-btn primary" data-sm-dialog-close>Archive</button></div></dialog>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Context menu: right-click the area, or focus it and press Shift+F10</p>
+      <div class="demo" data-snippet>
+        <div class="sm-card flat" data-sm-context-menu="ctx" tabindex="0" style="text-align:center;padding:var(--sm-space-7)"><span class="sm-caption">Right-click here</span></div>
+        <ul class="sm-menu-list floating" id="ctx" role="menu" hidden>
+          <li role="none"><button type="button" role="menuitem">Open <span class="sm-kbd">Enter</span></button></li>
+          <li role="none"><button type="button" role="menuitem">Rename</button></li>
+          <li role="none"><hr class="sm-divider"></li>
+          <li role="none"><button type="button" role="menuitem" class="danger">Delete</button></li>
+        </ul>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Command palette: press Cmd+K or Ctrl+K</p>
+      <div class="demo row" data-snippet>
+        <button type="button" class="sm-btn" data-sm-dialog-open="palette">Open palette <span class="sm-kbd">K</span></button>
+        <dialog class="sm-dialog sm-palette" id="palette" data-sm-palette="k" aria-label="Command palette">
+          <label class="sm-command"><svg class="sm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input type="text" placeholder="Type a command or search" aria-label="Command"></label>
+          <ul class="sm-palette-list" id="palette-list" role="listbox" aria-label="Commands">
+            <li class="sm-palette-group" role="presentation">Go to</li>
+            <li role="option" data-value="inbox">Inbox <span class="sm-kbd">G I</span></li>
+            <li role="option" data-value="settings">Settings <span class="sm-kbd">G S</span></li>
+            <li class="sm-palette-group" role="presentation">Actions</li>
+            <li role="option" data-value="theme">Switch theme</li>
+            <li role="option" data-value="new">New queue</li>
+          </ul>
+          <p class="sm-palette-empty" hidden>No command matches.</p>
+        </dialog>
+      </div>
+      <pre class="code"></pre>
+    </section>
+
+    <section id="structure" class="sm-stack">
+      <h2 class="sm-title">Page structure</h2>
+      <p class="sub">Top bar, banner and page header</p>
+      <div class="demo" data-snippet style="padding:0;overflow:hidden">
+        <header class="sm-topbar"><b class="sm-heading">Queue</b><nav aria-label="Main"><a href="#" aria-current="page">Now</a><a href="#">Reports</a><a href="#">Settings</a></nav><div class="end"><span class="sm-avatar sm">DS</span></div></header>
+        <div class="sm-banner signal" role="alert" data-sm-banner="demo-maintenance"><svg class="sm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 18H2z M12 10v4M12 17h.01"/></svg><span><b>Maintenance.</b> Sync pauses on Sunday from 02:00 to 03:00.</span><button type="button" class="sm-banner-x" aria-label="Dismiss">&times;</button></div>
+        <div style="padding:var(--sm-space-5)">
+          <div class="sm-page-header"><ol class="sm-breadcrumb"><li><a href="#">Projects</a></li><li><span aria-current="page">Ingestion worker</span></li></ol><div><h1 class="sm-display-m">Ingestion worker</h1><p>Reads mailboxes every five minutes.</p></div><div class="sm-page-header-actions"><button type="button" class="sm-btn">Pause</button><button type="button" class="sm-btn primary">Run now</button></div></div>
+          <p class="sm-body sm-muted">Page content.</p>
+        </div>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Labeled divider, carousel, aspect ratio and scroll area</p>
+      <div class="demo" data-snippet>
+        <div class="sm-divider-label">or continue with email</div>
+        <div class="sm-carousel" data-sm-carousel role="region" aria-roledescription="carousel" aria-label="Templates">
+          <div class="sm-carousel-track" tabindex="0">
+            <div class="sm-card tinted"><p class="sm-card-title">Weekly digest</p><p class="sm-caption">Monday, 09:00</p></div>
+            <div class="sm-card"><p class="sm-card-title">Reply later</p><p class="sm-caption">Every afternoon</p></div>
+            <div class="sm-card"><p class="sm-card-title">Set aside</p><p class="sm-caption">Friday review</p></div>
+            <div class="sm-card"><p class="sm-card-title">Feed</p><p class="sm-caption">Read when there is time</p></div>
+          </div>
+          <div class="sm-carousel-controls"><button type="button" class="sm-btn icon sm" data-sm-prev aria-label="Previous"><svg class="sm-icon sm-flip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><button type="button" class="sm-btn icon sm" data-sm-next aria-label="Next"><svg class="sm-icon sm-flip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div>
+        </div>
+        <div class="sm-grid">
+          <div class="sm-ratio" style="--sm-ratio:4/3;display:grid;place-items:center"><span class="sm-caption">4 / 3</span></div>
+          <div class="sm-scroll sm-prose" style="--sm-scroll-h:120px;border:1px solid var(--sm-line);border-radius:var(--sm-radius-m);padding:12px 14px"><p>A scroll area keeps a long list inside a fixed height with a thin scrollbar in the control colour.</p><p>Use it for logs, side lists and pickers.</p><p>It never hides the scrollbar, so people can see there is more.</p></div>
+        </div>
+      </div>
+      <pre class="code"></pre>
+    </section>
+
+    <section id="tables" class="sm-stack">
+      <h2 class="sm-title">Tables and records</h2>
+      <p class="sub">Data table: toolbar, sortable columns, row selection and a bulk action bar</p>
+      <div class="demo" data-snippet>
+        <div class="sm-toolbar"><label class="sm-input-group"><svg class="sm-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input class="sm-input" type="search" placeholder="Filter people" aria-label="Filter people"></label><button type="button" class="sm-btn sm dashed">+ Team</button><div class="end"><button type="button" class="sm-btn sm">Export</button></div></div>
+        <div class="sm-table-wrap scroll"><table class="sm-table sticky" data-sm-table id="people">
+          <thead><tr><th class="select"><label class="sm-check"><input type="checkbox" data-sm-select-all aria-label="Select all"></label></th><th aria-sort="none"><button type="button" class="sm-sort">Name</button></th><th aria-sort="none"><button type="button" class="sm-sort">Status</button></th><th aria-sort="none" class="num"><button type="button" class="sm-sort">Open</button></th><th aria-sort="none"><button type="button" class="sm-sort">Joined</button></th></tr></thead>
+          <tbody>
+            <tr><td class="select"><label class="sm-check"><input type="checkbox" data-sm-select-row aria-label="Select Priya Shah"></label></td><td>Priya Shah</td><td><span class="sm-status moss">Active</span></td><td class="num">12</td><td data-sort="2025-03-02">2 Mar 2025</td></tr>
+            <tr><td class="select"><label class="sm-check"><input type="checkbox" data-sm-select-row aria-label="Select Tomas Berg"></label></td><td>Tomas Berg</td><td><span class="sm-status signal">Invited</span></td><td class="num">3</td><td data-sort="2026-09-14">14 Sep 2026</td></tr>
+            <tr><td class="select"><label class="sm-check"><input type="checkbox" data-sm-select-row aria-label="Select Leah Okafor"></label></td><td>Leah Okafor</td><td><span class="sm-status">Suspended</span></td><td class="num">0</td><td data-sort="2024-11-30">30 Nov 2024</td></tr>
+            <tr><td class="select"><label class="sm-check"><input type="checkbox" data-sm-select-row aria-label="Select Ana Ruiz"></label></td><td>Ana Ruiz</td><td><span class="sm-status moss">Active</span></td><td class="num">27</td><td data-sort="2026-01-08">8 Jan 2026</td></tr>
+          </tbody>
+        </table></div>
+        <div class="sm-bulk-bar" data-sm-bulk-for="people" hidden><span><b data-sm-bulk-count>0</b> selected</span><button type="button" class="sm-btn">Assign</button><button type="button" class="sm-btn primary">Export</button><button type="button" class="sm-btn icon" data-sm-bulk-clear aria-label="Clear selection">&times;</button></div>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">KPI with delta and sparkline, bar list, status</p>
+      <div class="demo" data-snippet>
+        <div class="sm-grid">
+          <div class="sm-card"><div class="sm-stat"><span class="sm-stat-label">Open threads</span><span class="sm-stat-value">42</span><span class="sm-cluster"><span class="sm-delta">&darr; Down 12%</span><span class="sm-caption">vs last week</span></span></div>
+            <svg class="sm-spark" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true"><path class="area" d="M0 12 L20 16 L40 10 L60 22 L80 26 L100 30 V40 H0Z"/><path class="line" d="M0 12 L20 16 L40 10 L60 22 L80 26 L100 30"/></svg></div>
+          <div class="sm-card"><div class="sm-stat"><span class="sm-stat-label">Failed syncs</span><span class="sm-stat-value">7</span><span class="sm-cluster"><span class="sm-delta bad">&uarr; Up 3</span><span class="sm-delta flat">&rarr; Flat</span></span></div></div>
+        </div>
+        <ul class="sm-bars">
+          <li class="sm-bar"><span>Slack</span><i style="--v:82"></i><span class="sm-bar-value">82%</span></li>
+          <li class="sm-bar"><span>Jira</span><i style="--v:54"></i><span class="sm-bar-value">54%</span></li>
+          <li class="sm-bar"><span>Google Workspace</span><i style="--v:31"></i><span class="sm-bar-value">31%</span></li>
+        </ul>
+        <div class="sm-cluster"><span class="sm-status moss">Healthy</span><span class="sm-status signal">Degraded</span><span class="sm-status danger">Down</span><span class="sm-status info">Maintenance</span><span class="sm-status">Unknown</span></div>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Description list and timeline</p>
+      <div class="demo" data-snippet>
+        <dl class="sm-dl"><dt>Owner</dt><dd>Platform team</dd><dt>Schedule</dt><dd>Every five minutes</dd><dt>Token</dt><dd><span class="sm-mono">sk_live_7f3a&hellip;</span> <button type="button" class="sm-btn sm quiet" data-sm-copy="sk_live_7f3a"><span data-sm-copy-label>Copy</span></button></dd></dl>
+        <ol class="sm-timeline">
+          <li class="moss"><b>Run finished.</b> 214 messages read.<time datetime="2026-10-23T09:05">09:05</time></li>
+          <li class="signal"><b>Slack slowed down.</b> Retried twice.<time datetime="2026-10-23T09:01">09:01</time></li>
+          <li><b>Run started.</b><time datetime="2026-10-23T09:00">09:00</time></li>
+        </ol>
+      </div>
+      <pre class="code"></pre>
+      <p class="sub">Code block, truncation and an error state</p>
+      <div class="demo" data-snippet>
+        <div class="sm-code numbered"><div class="sm-code-head"><span>shell</span><button type="button" class="sm-btn sm quiet" data-sm-copy data-sm-copy-target="snip"><span data-sm-copy-label>Copy</span></button></div><pre><code id="snip"><span>npm install</span><span>npm run check</span></code></pre></div>
+        <span data-sm-truncate style="max-width:260px"><span class="sm-truncate">ingestion-worker-production-eu-central-1-blue.internal</span></span>
+        <p class="sm-clamp" id="clamp" style="--sm-lines:2;max-width:520px">Long notes stay at two lines until someone asks for more. The rest of the text is still in the page, so search and screen readers find it, and the button below opens the block in place.</p>
+        <button type="button" class="sm-btn sm quiet" data-sm-expand="clamp" aria-expanded="false" data-less="Show less">Show more</button>
+        <div class="sm-empty error"><span class="sm-empty-title">Could not load runs.</span><p>The worker did not answer in 10 seconds.</p><button type="button" class="sm-btn">Try again</button></div>
       </div>
       <pre class="code"></pre>
     </section>
